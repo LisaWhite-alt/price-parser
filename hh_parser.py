@@ -30,19 +30,18 @@ def extract_job(html):
     location = (html.find("span", {"data-qa": "vacancy-serp__vacancy-address"}).text).partition(",")[0]
     return {"title": title, "link": link, "company": company, "location": location}
 
-def extract_hh_jobs(last_page):
+def extract_jobs(last_page):
+    jobs = []
     for page in range(last_page):
-        # print(f"Парсинг страницы {page}:")
         result = requests.get(f"{URL}&page={page}", headers=HEADERS)
         soup = BeautifulSoup(result.text, "html.parser")
         results = soup.find_all(
             "div",
             {"class": "vacancy-serp-item"}
         )
-        jobs = []
         for result in results:
             jobs.append(extract_job(result))
-        print(*jobs, sep="\n")
-        # return jobs
+    return jobs
 
-extract_hh_jobs(extract_max_page())
+def get_jobs():
+    return extract_jobs(extract_max_page())
