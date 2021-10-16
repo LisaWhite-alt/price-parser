@@ -1,9 +1,9 @@
 import csv
 
 
-def save_to_csv(jobs):
-    file = open("test.csv", mode="w")
+def save_to_csv(fails):
+    file = open("fails.csv", mode="w")
     writer = csv.writer(file)
-    writer.writerow(["title", "link", "company", "location"])
-    for job in jobs:
-        writer.writerow(list(job.values()))
+    writer.writerow(["site", "name", "link", "price_fail", "price_true"])
+    for fail in fails:
+        writer.writerow(list(fail.values()))

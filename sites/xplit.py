@@ -1,5 +1,5 @@
 import requests
-from price import PRICE
+from .price import PRICE
 from bs4 import BeautifulSoup
 
 
