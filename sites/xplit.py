@@ -14,6 +14,7 @@ NAME_URL = {
     "ICEBERG NPLUS 59,8*119,8 (КГ) 1,433м2 (2шт)/42,99м": "https://www.xplit.ru/catalog/iceberg-fanal-ceramica/78002.html",
 }
 
+
 def extract_price():
     fail = []
     for name in NAME_URL:
@@ -21,11 +22,19 @@ def extract_price():
             page = requests.get(NAME_URL[name])
             if page.status_code == 200:
                 soup = BeautifulSoup(page.text, "html.parser")
-                name_price_str = ((soup.find("div", {"class": "money"}).find("span").text)[:-4])
+                name_price_str = (
+                    (soup.find("div", {"class": "money"}).find("span").text)[:-4])
                 name_price = int("".join(name_price_str.split()))
                 if name_price < PRICE[name]:
-                    fail.append({"site": "xplit", "name": name, "link": NAME_URL[name], "price_fail": name_price, "price_true": PRICE[name]})
+                    fail.append({
+                        "site": "xplit",
+                        "name": name,
+                        "link": NAME_URL[name],
+                        "price_fail": name_price,
+                        "price_true": PRICE[name]
+                    })
     return fail
+
 
 def get_fail_list():
     return extract_price()

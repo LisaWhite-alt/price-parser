@@ -23,7 +23,13 @@ def extract_price():
                 soup = BeautifulSoup(page.text, "html.parser")
                 name_price = int((soup.find("div", {"id": "product"}).find("p", {"class": "price"}).text)[6:-5])
                 if name_price < PRICE[name]:
-                    fail.append({"site": "megaceramic", "name": name, "link": NAME_URL[name], "price_fail": name_price, "price_true": PRICE[name]})
+                    fail.append({
+                        "site": "megaceramic",
+                        "name": name,
+                        "link": NAME_URL[name],
+                        "price_fail": name_price,
+                        "price_true": PRICE[name]
+                    })
     return fail
 
 def get_fail_list():

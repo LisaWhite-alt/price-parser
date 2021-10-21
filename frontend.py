@@ -7,9 +7,11 @@ app = Flask("Price_Server")
 
 db = {}
 
+
 @app.route("/")
 def home():
     return render_template("home.html")
+
 
 @app.route("/report")
 def report():
@@ -17,9 +19,11 @@ def report():
     db["fails"] = fails
     return render_template("report.html", fails=fails)
 
+
 @app.route("/export")
 def export():
     save_to_csv(db["fails"])
     return send_file("fails.csv")
+
 
 app.run(host="0.0.0.0")
